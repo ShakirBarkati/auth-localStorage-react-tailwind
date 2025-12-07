@@ -7,26 +7,46 @@ const Login = () => {
 
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
-    let [confirmPassword, setConfirmPassword] = useState("");
-    function createUser(email,password){
-        let newUser={
-            email:email,
-            password:password
-        }
+    
+   
+    function isCreateUser(email,password){
         
-        return newUser;
-    }
-    function inserUserInLocalStorage(newUser){
-        console.log(newUser)
-        let users=JSON.parse(localStorage.getItem("users")||"[]");
-        users.push(newUser);
+        
 
-        localStorage.setItem("users",JSON.stringify(users));
+          let users = JSON.parse(localStorage.getItem("users") || "[]");
         
+        console.log(users)
+        let isUserInLocalStorage=users.find(u=> u.email===email);
+        let isPasswordCorrect=users.find(p=>p.password===password);
+        if(!isUserInLocalStorage){
+             Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Please enter a correct email!",
+                        footer: '<a href="/">Your Account has been created?</a>'
+                    });
+                    return;
+        }else if(!isPasswordCorrect){
+            Swal.fire({
+                        icon: "error",
+                        title: "Oops...",
+                        text: "Please enter a Password email!"                        
+                    });
+                    return;
+        }
+
+                    Swal.fire({
+                        icon: "success",
+                        title: "Login",
+                        text: "you are successfully login in react app"                        
+                    });
+
+        
+        return true;
     }
     function submitForm(e){
         e.preventDefault();
-        // email conformtion its  valid eamil or not
+        // email conformtion it's  valid eamil or not
         let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
         if(!emailPattern.test(email)){
@@ -39,20 +59,18 @@ const Login = () => {
             alert("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
             return;
         }
-        else if(password !== confirmPassword){
-            alert("Passwords do not match.");
-            return;
-        }
         setEmail("");
         setPassword("");
-        setConfirmPassword("");
+
+        isCreateUser(email,password);
         
-        Swal.fire({
-            title: "Successfully sign up!",
-              icon: "success"
-            });
-let newUser=createUser(email,password);
-inserUserInLocalStorage(newUser);
+        // if(isUserInsered){
+        //     Swal.fire({
+        //         title: "Successfully Login!",
+        //         icon: "success"
+        //     });
+        // }
+
     }
     
   return (
@@ -76,16 +94,11 @@ inserUserInLocalStorage(newUser);
             setPassword(e.target.value)
           }} />
         </div>
-        <div>
-          <label for="confirm_password" className="mb-2 inline-block text-sm text-gray-800 sm:text-base">Confirm Password</label>
-          <input type='password' name="confirm_password" className="w-full rounded border bg-gray-50 px-3 py-2 text-gray-800 outline-none ring-indigo-300 transition duration-100 focus:ring" value={confirmPassword} onChange={(e)=>{
-            setConfirmPassword(e.target.value)
-          }} />
-        </div>
+       
 <div className="flex items-start mb-5">
     <label for="remember-alternative" className="flex items-center h-5">
       <input id="remember-alternative" type="checkbox" value="" className="w-4 h-4 border border-default-medium rounded-xs bg-neutral-secondary-medium outline-none" required />
-      <p className="ms-2 text-sm font-medium text-heading select-none">I agree with the <a href="#" className="text-fg-brand hover:underline">terms and conditions</a>.</p>
+      <p className="ms-2 text-sm font-medium text-heading select-none">I agree with the <a className="text-fg-brand hover:underline">terms and conditions</a>.</p>
     </label>
   </div>
         <button className="block rounded-lg bg-gray-800 px-8 py-3 text-center text-sm font-semibold text-white outline-none ring-gray-300 transition duration-100 hover:bg-gray-700 focus-visible:ring active:bg-gray-600 md:text-base">Create an account</button>
