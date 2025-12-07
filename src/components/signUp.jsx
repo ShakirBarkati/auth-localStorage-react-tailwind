@@ -7,6 +7,22 @@ const SignUp = () => {
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
     let [confirmPassword, setConfirmPassword] = useState("");
+      function isEmailInLocalStorage(email){
+          let users=JSON.parse(localStorage.getItem("users")|| "[]");
+          let isUserAvailable=users.find(u=>u.email===email);
+          if(isUserAvailable){
+            
+                                  Swal.fire({
+                                    icon: "error",
+                                    title: "User Available ...",
+                                    text: "This user in abailable plz enter diefferent email",
+                                    footer: '<a href="/login">You have an account</a>'
+                                });
+                                
+            return true;
+          }
+        }
+     
     function createUser(email,password){
         let newUser={
             email:email,
@@ -25,6 +41,11 @@ const SignUp = () => {
     }
     function submitForm(e){
         e.preventDefault();
+           let userAvailable=isEmailInLocalStorage(email);
+           if(userAvailable){
+               // stop submitForm execution
+            return;
+           }
         // email conformtion its  valid eamil or not
         let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
