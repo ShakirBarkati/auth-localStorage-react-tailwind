@@ -29,17 +29,34 @@ const SignUp = () => {
         let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
         if(!emailPattern.test(email)){
-            alert("Please enter a valid email address.");
+            
+                      Swal.fire({
+                                    icon: "error",
+                                    title: "email address ...",
+                                    text: "Please enter a valid email address.",
+                                    footer: '<a href="/login">You have an account</a>'
+                                });
             return;
         }else if(password.length < 6){
-            alert("Password must be at least 6 characters long.");
+            Swal.fire({
+                                    icon: "error",
+                                    title: "Min 6 characters  ...",
+                                    text: "Password must be at least 6 characters long.",
+                                    
+                                });
             return;
         }else if(!strongPasswordPattern.test(password)){
             alert("Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
             return;
         }
         else if(password !== confirmPassword){
-            alert("Passwords do not match.");
+            
+                         Swal.fire({
+                                    icon: "error",
+                                    title: "Not match password and conform password ...",
+                                    text: "plz enter a same password ",
+                                    
+                                });
             return;
         }
         setEmail("");
