@@ -41,11 +41,7 @@ const SignUp = () => {
     }
     function submitForm(e){
         e.preventDefault();
-           let userAvailable=isEmailInLocalStorage(email);
-           if(userAvailable){
-               // stop submitForm execution
-            return;
-           }
+         
         // email conformtion its  valid eamil or not
         let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         let strongPasswordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
@@ -80,6 +76,11 @@ const SignUp = () => {
                                 });
             return;
         }
+          let userAvailable=isEmailInLocalStorage(email);
+           if(userAvailable){
+               // stop submitForm execution
+            return;
+           }
         setEmail("");
         setPassword("");
         setConfirmPassword("");
