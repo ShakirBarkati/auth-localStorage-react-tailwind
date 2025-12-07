@@ -8,4 +8,6 @@ Save signup data in localStorage
 road map:
 setup react project with tailwind css ✅
 Genrate signUp frontend page ✅
-Create a signUp funcnality
+Create a signUp funcnality ✅
+set user in localStorage in object form ✅
+create login form

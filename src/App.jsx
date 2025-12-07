@@ -1,9 +1,16 @@
 import React from 'react'
-import SignUp from "./components/signUp"
+import SignUp from "./components/SignUp"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Login from './components/Login';
 
 const App = () => {
   return (
-    <SignUp/>
+    <Router>
+      <Routes>
+                <Route path="/" element={<SignUp />} />
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </Router>
   )
 }
 

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+
 import Swal from 'sweetalert2';
 
-const SignUp = () => {
+const Login = () => {
 
     let [email, setEmail] = useState("");
     let [password, setPassword] = useState("");
@@ -117,7 +118,7 @@ inserUserInLocalStorage(newUser);
       </div>
 
       <div className="flex items-center justify-center bg-gray-100 p-4">
-        <p className="text-center text-sm text-gray-500">Already have an account? <Link to="/login" className="text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">Log in</Link></p>
+        <p className="text-center text-sm text-gray-500">You have an account? <Link to="/" className="text-indigo-500 transition duration-100 hover:text-indigo-600 active:text-indigo-700">Sign Up</Link></p>
       </div>
     </form>
   </div>
@@ -126,4 +127,4 @@ inserUserInLocalStorage(newUser);
   )
 }
 
-export default SignUp
+export default Login
